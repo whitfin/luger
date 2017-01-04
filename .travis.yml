@@ -9,7 +9,7 @@ otp_release:
 before_install:
   - mix local.rebar --force
 script:
-  - mix test --trace
+  - mix coveralls.travis --trace
 branches:
   only:
     - master
