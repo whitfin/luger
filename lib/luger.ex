@@ -67,12 +67,10 @@ defmodule Luger do
 
   @doc false
   defmacro __using__(_) do
-    import PrePlug, only: [pre_plug: 1]
     quote location: :keep do
-      unless Module.get_attribute(__MODULE__, :pre_plugs) do
-        use PrePlug
-      end
-      pre_plug Luger
+      require PrePlug
+      PrePlug.ensure_loaded()
+      PrePlug.pre_plug(Luger)
     end
   end
 

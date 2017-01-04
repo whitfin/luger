@@ -23,7 +23,7 @@ defmodule Luger.Mixfile do
         },
         maintainers: [ "Isaac Whitfield" ]
       },
-      version: "1.0.1",
+      version: "1.0.2",
       elixir: "~> 1.2",
       deps: deps(),
       docs: [
@@ -56,7 +56,7 @@ defmodule Luger.Mixfile do
   defp deps do
     [
       # Production dependencies
-      { :pre_plug,    "~> 0.1" },
+      { :pre_plug,    "~> 1.0" },
       # Local dependencies
       { :ex_doc,      "~> 0.14", optional: true, only: [ :dev, :test ] },
       { :excoveralls, "~> 0.5",  optional: true, only: [ :dev, :test ] },
