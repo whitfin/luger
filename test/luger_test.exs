@@ -2,7 +2,9 @@ defmodule LugerTest do
   use ExUnit.Case
   doctest Luger
 
-  test "logging!" do
+  # Tests happy path for logging and various option combinations and how they
+  # affect the message being logged and the level it's logged under.
+  test "base logging" do
     # create base loggers
     opts1 = Luger.init()
     opts2 = Luger.init([ level: :debug ])
@@ -76,5 +78,61 @@ defmodule LugerTest do
     validate.(str4, { 127, 0, 0, 1 })
     validate.(str5, { 127, 0, 0, 1 })
     validate.(str6, nil)
+  end
+
+  # Verifies duration formatting can also handle millisecond formatting rather
+  # than just measuring in microsecond durations (which is confusing).
+  test "duration formatting" do
+    # create base logger
+    opts = Luger.init()
+
+    # create a base connection for testing
+    base = Plug.Adapters.Test.Conn.conn(%Plug.Conn{ }, :post, "/endpoint", %{ })
+
+    # create a Luger message
+    struct =
+      base
+      |> Plug.Conn.send_resp(200, "")
+      |> Luger.Message.create(5000, opts)
+
+    # join the struct
+    joined = Luger.join(struct)
+
+    # verify the message has millis formatting
+    assert(joined == "POST /endpoint - 200 - 5ms - 127.0.0.1")
+  end
+
+  # Verifies that unset status inside connections is handled and logged as unset.
+  # This should never happen in practice, it's just a safetynet for manual use.
+  test "status formatting" do
+    # create base logger
+    opts = Luger.init()
+
+    # create a base connection for testing
+    base = Plug.Adapters.Test.Conn.conn(%Plug.Conn{ }, :post, "/endpoint", %{ })
+
+    # create connections
+    conn1 = base
+    conn2 = Plug.Conn.send_resp(base, 200, "")
+
+    # create a Luger message
+    struct1 = Luger.Message.create(conn1, 500, opts)
+    struct2 = Luger.Message.create(conn2, 500, opts)
+
+    # join the structs
+    joined1 = Luger.join(struct1)
+    joined2 = Luger.join(struct2)
+
+    # verify the message has correct formatting
+    assert(joined1 == "POST /endpoint - unset - 500µs - 127.0.0.1")
+    assert(joined2 == "POST /endpoint - 200 - 500µs - 127.0.0.1")
+
+    # convert them back into structs
+    struct3 = Luger.split(joined1)
+    struct4 = Luger.split(joined2)
+
+    # verify we got the base back
+    assert(struct3 == struct1)
+    assert(struct4 == struct2)
   end
 end
