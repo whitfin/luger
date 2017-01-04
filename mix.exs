@@ -54,8 +54,13 @@ defmodule Luger.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{ :pre_plug,    "~> 0.1" },
-     { :excoveralls, "~> 0.5", optional: true, only: [ :dev, :test ] },
-     { :plug,        "~> 1.2", optional: true, only: [ :dev, :test ] }]
+    [
+      # Production dependencies
+      { :pre_plug,    "~> 0.1" },
+      # Local dependencies
+      { :ex_doc,      "~> 0.14", optional: true, only: [ :dev, :test ] },
+      { :excoveralls, "~> 0.5",  optional: true, only: [ :dev, :test ] },
+      { :plug,        "~> 1.2",  optional: true, only: [ :dev, :test ] }
+    ]
   end
 end
