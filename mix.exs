@@ -16,18 +16,18 @@ defmodule Luger.Mixfile do
           "LICENSE",
           "README.md"
         ],
-        licenses: [ "MIT" ],
+        licenses: ["MIT"],
         links: %{
           "Docs" => @url_docs,
           "GitHub" => @url_github
         },
-        maintainers: [ "Isaac Whitfield" ]
+        maintainers: ["Isaac Whitfield"]
       },
       version: "1.0.2",
       elixir: "~> 1.2",
       deps: deps(),
       docs: [
-        extras: [ "README.md" ],
+        extras: ["README.md"],
         source_ref: "master",
         source_url: @url_github
       ],
@@ -56,11 +56,11 @@ defmodule Luger.Mixfile do
   defp deps do
     [
       # Production dependencies
-      { :pre_plug,    "~> 1.0" },
+      {:pre_plug, "~> 1.0"},
       # Local dependencies
-      { :ex_doc,      "~> 0.14", optional: true, only: [ :dev, :test ] },
-      { :excoveralls, "~> 0.5",  optional: true, only: [ :dev, :test ] },
-      { :plug,        "~> 1.2",  optional: true, only: [ :dev, :test ] }
+      {:ex_doc, "~> 0.37", optional: true, only: [:dev, :test]},
+      {:excoveralls, "~> 0.18", optional: true, only: [:dev, :test]},
+      {:plug, "~> 1.17", optional: true, only: [:dev, :test]}
     ]
   end
 end
