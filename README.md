@@ -1,29 +1,29 @@
 # Luger
-[![Build Status](https://img.shields.io/travis/zackehh/luger.svg)](https://travis-ci.org/zackehh/luger) [![Coverage Status](https://img.shields.io/coveralls/zackehh/luger.svg)](https://coveralls.io/github/zackehh/luger) [![Hex.pm Version](https://img.shields.io/hexpm/v/luger.svg)](https://hex.pm/packages/luger) [![Documentation](https://img.shields.io/badge/docs-latest-yellowgreen.svg)](https://hexdocs.pm/luger/)
+[![Build Status](https://img.shields.io/travis/whitfin/luger.svg)](https://travis-ci.org/whitfin/luger) [![Coverage Status](https://img.shields.io/coveralls/whitfin/luger.svg)](https://coveralls.io/github/whitfin/luger) [![Hex.pm Version](https://img.shields.io/hexpm/v/luger.svg)](https://hex.pm/packages/luger) [![Documentation](https://img.shields.io/badge/docs-latest-yellowgreen.svg)](https://hexdocs.pm/luger/)
 
 Luger is a super simple logging plug for Elixir which logs status codes and IP addresses as well as the route. I basically made it into a module rather than rolling my own logger in every project (seeing as the built-in Plug logger really isn't very useful).
 
-Includes bindings using [pre_plug](https://github.com/zackehh/pre_plug) to ensure that logs are fired even in case of error states.
+Includes bindings using [pre_plug](https://github.com/whitfin/pre_plug) to ensure that logs are fired even in case of error states.
 
 ## Installation
 
 As of v1.0.0, Luger is available on [Hex](https://hex.pm/). You can install the package via:
 
-  1. Add luger to your list of dependencies in `mix.exs`:
+Add luger to your list of dependencies in `mix.exs`:
 
-    ```elixir
-    def deps do
-      [{:luger, "~> 1.0"}]
-    end
-    ```
+```elixir
+def deps do
+  [{:luger, "~> 1.0"}]
+end
+```
 
-  2. Ensure luger is started before your application:
+Ensure luger is started before your application:
 
-    ```elixir
-    def application do
-      [applications: [:luger]]
-    end
-    ```
+```elixir
+def application do
+  [applications: [:luger]]
+end
+```
 
 ## Usage
 
